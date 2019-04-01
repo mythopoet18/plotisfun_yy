@@ -39,7 +39,7 @@ def keywordsearch(keywords):
             return requests.get('https://www.alphavantage.co/query',
                         params=params)
 @app.route('/',methods=['GET'])
-def home()
+def home():
 return redirect('index')
 
 @app.route('/index',methods=['GET','POST'])

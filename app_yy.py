@@ -2,9 +2,6 @@ from flask import Flask,render_template,request,redirect
 import pandas as pd
 import requests
 import simplejson as json
-import seaborn as sns
-sns.set()
-import numpy as np
 from requests_oauthlib import OAuth1
 
 from bokeh.plotting import figure, output_file, show
@@ -14,7 +11,6 @@ from bokeh.embed import components
 from bokeh.resources import INLINE, CDN
 
 from math import pi
-from collections import OrderedDict
 
 app_yy = Flask(__name__)
 
@@ -197,5 +193,5 @@ def main_yy():
                            symbol=app_yy.vars['symbol'])
 
 if __name__ == '__main__':
- # app_yy.run(port=33507)
-  app_yy.run(debug=True)
+  app_yy.run(port=33507)
+ # app_yy.run(debug=True)

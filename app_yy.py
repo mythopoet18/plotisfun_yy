@@ -12,9 +12,9 @@ from bokeh.resources import INLINE, CDN
 
 from math import pi
 
-app_yy = Flask(__name__)
+app = Flask(__name__)
 
-app_yy.vars={}
+app.vars={}
 
 with open("secrets/alphavantage_secrets.json.nogit") as f:
     secrets = json.loads(f.read())
@@ -39,15 +39,15 @@ def keywordsearch(keywords):
             return requests.get('https://www.alphavantage.co/query',
                         params=params)
 
-@app_yy.route('/index',methods=['GET','POST'])
+@app.route('/index',methods=['GET','POST'])
 def index():
     if request.method == 'GET':
         return render_template('lookup_yy.html')
     else:
         #user submit keyword searchTerm
-        app_yy.vars['kw_yy']=request.form['kw_yy']
+        app.vars['kw_yy']=request.form['kw_yy']
 
-        kw0=keywordsearch(app_yy.vars['kw_yy'])
+        kw0=keywordsearch(app.vars['kw_yy'])
         #kw0=requests.get('https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=Micro&apikey=demo')
 
         kw1=kw0.json()
@@ -57,7 +57,7 @@ def index():
             kws=pd.read_json(kw)
 
         if len(kws.index)==1:
-            app_yy.vars['symbol']=request.form['kw_yy'].upper()
+            app.vars['symbol']=request.form['kw_yy'].upper()
             return redirect('main_yy')
         elif len(kws.index)==0:
             return render_template('lookup_yy.html')
@@ -67,14 +67,14 @@ def index():
             ti='\n'.join(kws2)
         return render_template('lookup_kw_yy.html',tickers=ti)
 
-@app_yy.route('/kw',methods=['POST'])
+@app.route('/kw',methods=['POST'])
 def kw():
-    app_yy.vars['symbol']=request.form['symbol_yy'].upper()
+    app.vars['symbol']=request.form['symbol_yy'].upper()
     return redirect('main_yy')
 
-@app_yy.route('/main_yy',methods=['GET'])
+@app.route('/main_yy',methods=['GET'])
 def main_yy():
-    dp=dailystock(app_yy.vars['symbol'])
+    dp=dailystock(app.vars['symbol'])
 #    dp=requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo')
     dp1=dp.json()
 
@@ -117,7 +117,7 @@ def main_yy():
     TOOLS = "pan,wheel_zoom,box_zoom,reset,save"
     p = figure(x_axis_type="datetime", tools=TOOLS,toolbar_location="left",
                plot_width=800,plot_height=400,sizing_mode='scale_width',
-               title="%s Candlestick plot with Bollinger Band"%(app_yy.vars['symbol']))
+               title="%s Candlestick plot with Bollinger Band"%(app.vars['symbol']))
     p.yaxis[0].formatter = NumeralTickFormatter(format="$0.00 a")
     p.xaxis.major_label_orientation = pi/4
     p.grid.grid_line_alpha=0.3
@@ -148,7 +148,7 @@ def main_yy():
     s1 = figure(x_axis_type="datetime",
                 tools=TOOLS, toolbar_location="left",
                 plot_width=800,plot_height=400,sizing_mode='scale_width',
-                title="%s Daily Average Price and Transaction Volume"%(app_yy.vars['symbol']))
+                title="%s Daily Average Price and Transaction Volume"%(app.vars['symbol']))
     s1.yaxis[0].formatter = NumeralTickFormatter(format="$0.00 a")
     s1.y_range = Range1d(t3['avg'].min()/1.5, t3['avg'].max()*1.2)
     s1.extra_y_ranges = {"vol": Range1d(start=t3['5. volume'].min(), end=t3['5. volume'].max()*2)}
@@ -190,8 +190,8 @@ def main_yy():
                           # script=script,div=div,
                            cdn_css=cdn_css,
                            cdn_js=cdn_js,
-                           symbol=app_yy.vars['symbol'])
+                           symbol=app.vars['symbol'])
 
 if __name__ == '__main__':
-  app_yy.run()
- # app_yy.run(debug=True)
+  app.run()
+ # app.run(debug=True)

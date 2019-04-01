@@ -39,7 +39,7 @@ def keywordsearch(keywords):
             return requests.get('https://www.alphavantage.co/query',
                         params=params)
 
-@app.route('/index',methods=['GET','POST'])
+@app.route('/',methods=['GET','POST'])
 def index():
     if request.method == 'GET':
         return render_template('lookup_yy.html')

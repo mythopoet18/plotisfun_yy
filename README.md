@@ -1,6 +1,6 @@
 ## Plotting Daily Stock Price with Bokeh
 
-The home page provides a `keyword search` function to help users find the stock ticker. The `ticker search` page asks users to type the desired stock ticker. The `plotting page` renders two plots.
+The `home` page provides a `keyword search` function to help users find the stock ticker. The `ticker search` page asks users to type the desired stock ticker. The `plotting page` renders two plots.
 
 ## API
 

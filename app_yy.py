@@ -193,5 +193,5 @@ def main_yy():
                            symbol=app_yy.vars['symbol'])
 
 if __name__ == '__main__':
-  app_yy.run(port=5000)
- # app_yy.run(debug=True)
+ # app_yy.run(port=5000)
+  app_yy.run(debug=True)

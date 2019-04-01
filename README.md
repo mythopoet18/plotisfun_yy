@@ -31,4 +31,9 @@ The plot has interactive hover tool. The second plot use twin y-axis to show dif
 The two plots are imbedded to the plotting template using components.
 
 ## Tabs
-The home
+
+The home page has tab connecting to this github. The ticker search page has home page tab and github tab. The plotting page also provides link to `google finance search` using the input ticker.
+
+## Bug
+
+

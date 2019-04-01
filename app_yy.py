@@ -40,7 +40,7 @@ def keywordsearch(keywords):
                         params=params)
 @app.route('/',methods=['GET'])
 def home():
-return redirect('index')
+    return redirect('index')
 
 @app.route('/index',methods=['GET','POST'])
 def index():
@@ -197,4 +197,4 @@ def main_yy():
 
 if __name__ == '__main__':
   app.run()
- # app.run(debug=True)
+  #app.run(debug=True)

@@ -38,8 +38,11 @@ def keywordsearch(keywords):
             'apikey': auth}
             return requests.get('https://www.alphavantage.co/query',
                         params=params)
+@app.route('/',methods=['GET'])
+def home()
+return redirect('index')
 
-@app.route('/',methods=['GET','POST'])
+@app.route('/index',methods=['GET','POST'])
 def index():
     if request.method == 'GET':
         return render_template('lookup_yy.html')

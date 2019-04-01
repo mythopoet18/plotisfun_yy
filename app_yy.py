@@ -51,8 +51,8 @@ def index():
         #user submit keyword searchTerm
         app_yy.vars['kw_yy']=request.form['kw_yy']
 
-#        kw0=keywordsearch(app_yy.vars['kw_yy'])
-        kw0=requests.get('https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=Micro&apikey=demo')
+        kw0=keywordsearch(app_yy.vars['kw_yy'])
+        #kw0=requests.get('https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=Micro&apikey=demo')
 
         kw1=kw0.json()
         with open('kw-suggestion.json','w') as kw:
@@ -78,8 +78,8 @@ def kw():
 
 @app_yy.route('/main_yy',methods=['GET'])
 def main_yy():
-#    dp=dailystock(app_yy.vars['symbol'])
-    dp=requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo')
+    dp=dailystock(app_yy.vars['symbol'])
+#    dp=requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo')
     dp1=dp.json()
 
     with open('meta_temp.json','w') as temp:
